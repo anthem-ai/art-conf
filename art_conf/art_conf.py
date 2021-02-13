@@ -19,7 +19,7 @@ password: {password}
 
 def get_npmrc(art_url: str, user: str, password: str, email: str) -> str:
     user_pass = f"{user}:{password}"
-    b64_user_pass = base64.b64encode(user_pass.encode('ascii')).decode('ascii')
+    b64_user_pass = base64.b64encode(user_pass.encode("ascii")).decode("ascii")
     return f"""
 registry=https://{art_url}/npm/npm/
 _auth = {b64_user_pass}
