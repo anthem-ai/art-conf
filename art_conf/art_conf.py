@@ -54,6 +54,18 @@ def configure_pip(art_url: str, user: str, password: str) -> None:
         ]
     )
 
+    subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "pip",
+            "config",
+            "set",
+            "global.trusted-host",
+            "artifacts.anthemai.io",
+        ]
+    )
+
 
 def save_file(path: Path, contents: str) -> None:
     if path.is_file():
