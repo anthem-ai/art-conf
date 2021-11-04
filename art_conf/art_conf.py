@@ -85,8 +85,10 @@ def main() -> None:
     if not api_key:
         api_key = getpass.getpass(prompt="Enter your Artifactory API Key: ")
 
-    # save_file(Path.home().joinpath(".pypirc"), get_pypirc(art_url, user, api_key))
-    # save_file(Path.home().joinpath(".npmrc"), get_npmrc(art_url, user, api_key, email))
+    # save_file
+    # (Path.home().joinpath(".pypirc"), get_pypirc(art_url, user, api_key))
+    # save_file
+    # (Path.home().joinpath(".npmrc"), get_npmrc(art_url, user, api_key, email))
     configure_pip(art_url, user, api_key)
 
 
