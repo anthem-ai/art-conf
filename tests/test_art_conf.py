@@ -3,11 +3,13 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock, call, patch
 
+import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
 from art_conf.art_conf import main
 
 
+@pytest.mark.skip(reason="Currently not writing npmrc or pypirc")
 @patch("subprocess.run")
 @patch("builtins.input", side_effect=["test.url", "test_user", "test@email.com"])
 @patch("getpass.getpass", lambda prompt: "test-pass")
@@ -47,7 +49,7 @@ def test_runs_pip_config(
                 "pip",
                 "config",
                 "set",
-                "global.index",
+                "global.extra-index",
                 "https://test_user:test-pass@test.url/pypi/pypi/simple",
             ]
         )
@@ -59,7 +61,7 @@ def test_runs_pip_config(
                 "pip",
                 "config",
                 "set",
-                "global.index-url",
+                "global.extra-index-url",
                 "https://test_user:test-pass@test.url/pypi/pypi/simple",
             ]
         )
@@ -67,6 +69,7 @@ def test_runs_pip_config(
         run.assert_has_calls([call1, call2], any_order=True)
 
 
+@pytest.mark.skip(reason="Currently not writing npmrc or pypirc")
 @patch("subprocess.run")
 @patch("builtins.input", side_effect=["test.url", "test_user", "test@email.com"])
 @patch("getpass.getpass", lambda prompt: "test-pass")
@@ -85,6 +88,7 @@ def test_pypirc_exists(
         assert "existing text" == pypirc.read_text()
 
 
+@pytest.mark.skip(reason="Currently not writing npmrc or pypirc")
 @patch("subprocess.run")
 @patch("builtins.input", side_effect=["test.url", "test_user", "test@email.com"])
 @patch("getpass.getpass", lambda prompt: "test-pass")
@@ -103,6 +107,7 @@ def test_npmrc_exists(
         assert "existing text" == npmrc.read_text()
 
 
+@pytest.mark.skip(reason="Currently not writing npmrc or pypirc")
 @patch("subprocess.run")
 @patch("builtins.input", side_effect=["test.url", "test_user", "test@email.com"])
 @patch("getpass.getpass", lambda prompt: "test-pass")
@@ -121,6 +126,7 @@ def test_missing_directory(
         assert path.is_dir()
 
 
+@pytest.mark.skip(reason="Currently not writing npmrc or pypirc")
 @patch("subprocess.run")
 @patch("builtins.input", side_effect=["test_user", "test@email.com"])
 @patch("getpass.getpass", lambda prompt: "test-pass")

@@ -21,7 +21,7 @@ def get_npmrc(art_url: str, user: str, password: str, email: str) -> str:
     user_pass = f"{user}:{password}"
     b64_user_pass = base64.b64encode(user_pass.encode("ascii")).decode("ascii")
     return f"""
-registry=https://{art_url}/npm/npm/
+@healthos:registry=https://{art_url}/npm/npm/
 _auth = {b64_user_pass}
 email = {email}
 always-auth = true
@@ -37,7 +37,7 @@ def configure_pip(art_url: str, user: str, password: str) -> None:
             "pip",
             "config",
             "set",
-            "global.index",
+            "global.extra-index",
             index_url,
         ]
     )
@@ -49,7 +49,7 @@ def configure_pip(art_url: str, user: str, password: str) -> None:
             "pip",
             "config",
             "set",
-            "global.index-url",
+            "global.extra-index-url",
             index_url,
         ]
     )
@@ -85,8 +85,10 @@ def main() -> None:
     if not api_key:
         api_key = getpass.getpass(prompt="Enter your Artifactory API Key: ")
 
-    save_file(Path.home().joinpath(".pypirc"), get_pypirc(art_url, user, api_key))
-    save_file(Path.home().joinpath(".npmrc"), get_npmrc(art_url, user, api_key, email))
+    # save_file
+    # (Path.home().joinpath(".pypirc"), get_pypirc(art_url, user, api_key))
+    # save_file
+    # (Path.home().joinpath(".npmrc"), get_npmrc(art_url, user, api_key, email))
     configure_pip(art_url, user, api_key)
 
 
