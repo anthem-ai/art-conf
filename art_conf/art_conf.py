@@ -1,6 +1,5 @@
 import base64
 import getpass
-import os
 import subprocess
 import sys
 from pathlib import Path
@@ -56,15 +55,13 @@ def configure_pip(art_url: str, user: str, password: str) -> None:
 
 
 def save_file(path: Path, contents: str) -> None:
-    if path.is_file():
-        print(f"{path} found, not writing")
+    if path.exists():
+        print(f"{path} found, not writing", file=sys.stderr)
         return
 
-    if not path.parent.is_dir():
-        os.makedirs(str(path.parent))
+    path.parent.mkdir(parents=True, exist_ok=True)
 
-    with path.open("w") as fp:
-        fp.write(contents)
+    path.write_text(contents)
 
 
 def main() -> None:
@@ -75,20 +72,26 @@ def main() -> None:
 
     if not art_url:
         art_url = input("Enter your Artifactory URL: ")
+    else:
+        print(f"Using {art_url} as Artifactory URL.", file=sys.stderr)
 
     if not user:
         user = input("Enter your Artifactory User Profile: ")
+    else:
+        print(f"Using {user} as Artifactory User.", file=sys.stderr)
 
     if not email:
         email = input("Enter your Artifactory Email Address: ")
+    else:
+        print(f"Using {email} as Artifactory Email Address.", file=sys.stderr)
 
     if not api_key:
         api_key = getpass.getpass(prompt="Enter your Artifactory API Key: ")
+    else:
+        print(f"Using {api_key} as Artifactory API Key.", file=sys.stderr)
 
-    # save_file
-    # (Path.home().joinpath(".pypirc"), get_pypirc(art_url, user, api_key))
-    # save_file
-    # (Path.home().joinpath(".npmrc"), get_npmrc(art_url, user, api_key, email))
+    save_file(Path.home().joinpath(".pypirc"), get_pypirc(art_url, user, api_key))
+    save_file(Path.home().joinpath(".npmrc"), get_npmrc(art_url, user, api_key, email))
     configure_pip(art_url, user, api_key)
 
 

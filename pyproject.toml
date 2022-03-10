@@ -5,17 +5,17 @@ description = "Configure Artifactory with pip and npm"
 authors = []
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/christianlent/art-conf"
-repository = "https://github.com/christianlent/art-conf"
+homepage = "https://github.com/anthem-ai/art-conf"
+repository = "https://github.com/anthem-ai/art-conf"
 keywords = ["Artifactory", "pip", "npm", "python", "pypi"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Topic :: Software Development :: Build Tools",
-    "Programming Language :: Python :: 3.6",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
 ]
 packages = [
     { include = "art_conf" },
@@ -23,20 +23,15 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = ">= 3.6, <= 3.9"
+python = ">= 3.7, < 4.0"
 
 [tool.poetry.dev-dependencies]
-black = "^20.8b1"
-flake8 = "^3.8.4"
+black = "^22.1"
+flake8 = "^4.0.1"
 isort = "^5.6.4"
-mypy = "^0.790"
+mypy = "^0.931"
 pytest = "^6.0.2"
-pytest-cov = "^2.11.1"
-
-[tool.black]
-line-length = 88
-target-version = ["py37"]
-exclude = "^/(stubs|care_gaps/ui)/"
+pytest-cov = "^3.0.0"
 
 [tool.isort]
 profile = "black"
